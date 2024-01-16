@@ -1,0 +1,88 @@
+% Neuroloop utilities - Synthesis model guide - Top level
+% Written by Christopher Thomas.
+
+\documentclass[letterpaper,11pt]{report}
+\usepackage[letterpaper]{geometry}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{placeins}
+\usepackage{longtable}
+% Needed for "mathbb" (outline bold).
+%\usepackage{amsfonts}
+
+\geometry{nohead,footskip=0.3in,margin=0.75in}
+
+% Force my paragraph style, darnit.
+\usepackage{indentfirst}
+\setlength{\parskip}{\baselineskip}
+
+% NOTE - "\thispagestyle" is used for part and chapter beginning pages, and
+% overrides \pagestyle. Redefine it to be harmless.
+% NOTE - The canonical solution ("\pagenumbering{gobble}") resets the page
+% counter whenever it's used.
+\renewcommand{\thispagestyle}[1]{}
+
+% Custom macros.
+\newcommand{\fixme}[1]{\textbf{FIXME: #1}}
+
+\newcommand{\figdef}[3]
+{\begin{figure}[htb]
+\begin{center}#1\end{center}
+\caption{#2}\label{#3}\end{figure}}
+
+% NOTE - This was [hb].
+\newcommand{\tabdef}[3]
+{\begin{table}[htb]
+\begin{center}#1\end{center}
+\caption{#2}\label{#3}\end{table}}
+
+% Document body.
+\begin{document}
+%
+% Title page.
+%
+\pagestyle{empty}
+
+\begin{center}
+%
+\vspace*{1in}
+{\huge NeuroLoop Utilities -- Model-Based Synthesis Guide} \\
+{\footnotesize Written by Christopher Thomas -- \today.}
+%
+\vspace*{1.5in}\\
+\includegraphics[width=5in]{plots/20231205/lfp-simulation-robinson-model}
+%
+\end{center}
+%
+\vfill
+{\tiny \input{../LICENSE.md}}
+%
+\clearpage
+%
+%
+% Front matter.
+%
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{1}
+%
+\tableofcontents
+%
+\clearpage
+%
+%
+% Document parts.
+%
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+%
+\input{models-over}
+\input{models-robinson}
+\input{models-robinson-math}
+%
+%
+\end{document}
+
+%
+% This is the end of the file.
