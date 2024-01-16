@@ -1,0 +1,55 @@
+The synthRFH_XXX functions accept a model parameters structure with the
+fields described below.
+
+
+Relevant references:
+
+(Robinson 2002)
+https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.041924
+
+(Freyer 2011)
+https://www.jneurosci.org/content/31/17/6353.short
+
+(Hindriks 2023)
+https://www.nature.com/articles/s42003-023-04648-x
+
+
+Sigmoid parameters (common to all):
+
+"qmax" is the maximum firing rate (1/sec); typically 250.
+"threshlevel" is the average neuronal threshold (mV); typically 15.
+"threshsigma" is the standard deviation of the neuronal threshold (mV);
+  typically 6.0.
+
+
+Neural dynamics parameters (common to all):
+
+"alpha" is the inverse decay time (1/sec); typically 50.
+"beta" is the inverse rise time (1/sec); typically 200.
+"gamma" is the inverse within-cortex propagation time (1/sec); typically 100.
+
+
+Cortico-thalamic circuit parameters (for simulateNetwork):
+
+"halfdelay_ms" is half of the round-trip cortex/thalamus loop time (ms);
+  typically 40.
+
+
+Additional coupling parameters (for simulateNetwork):
+
+"noisecoupling" is the coupling weight of noise into the specific nucleus.
+  Typically 0.5.
+"mixturecoupling" is the coupling weight of mixed-population cortex
+  excitatory signals into the cortex. Typically 0.07.
+
+
+Noise generation parameters (for simulateNetwork):
+
+"noisemean" is the mean noise signal value; typically 0.
+"noisesigma" is the standard deviation of additive noise; typically 0.1.
+"noisemultfactor" is "chi" in Freyer 2011/Hindriks 2023; the standard
+  deviation of multiplicative noise is chi * noisesigma. Typically 0.3.
+
+
+
+This is the end of the file.
