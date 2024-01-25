@@ -1,33 +1,7 @@
 % Data sythesis using the Robinson/Freyer/Hindriks model - Model Description
 % Written by Christopher Thomas.
 
-\chapter{Robinson Model}
-\label{sect-robinson}
-
-\fixme{Edit this.}
-
-The model presented in Robinson 2002 (hereafter ``the Robinson model'')
-provides a series of differential equations relating the firing rates of
-multiple neural populations in the cortex and thalamus. Feedback between
-these regions drives noise-excited oscillations.
-
-The most relevant references are:
-\begin{itemize}
-\item Robinson 2002 -- Describes the model, finds steady-state points, and
-analyzes perturbations around those points to find oscillation modes.
-\item Freyer 2011 -- Describes an extension to the model where noise is
-modulated by the network's own output, providing a closer match to the
-distribution of oscillation modes in biological data.
-\item Hindriks 2023 -- Describes an extension to the model that adds multiple
-independent copies of the Robinson and Freyer model, with coupling between
-instances. This is used to model co-oscillation of different brain regions
-in biological data.
-\end{itemize}
-(See Section \ref{sect-robinson-refs} for citations.)
-
-%
-%
-\section{Model Description}
+\chapter{Model Details}
 \label{sect-robinson-model}
 
 A diagram of the Robinson model with the extensions from Freyer 2011 and
@@ -152,7 +126,7 @@ than $\frac{1}{\gamma}$.
 Typical parameter values for the extended Robinson model are shown in
 Table \ref{tab-robinson-params}. Typical coupling coefficients are shown in
 Table \ref{tab-robinson-couplings}. These are very similar to the parameter
-and coupling coefficient values used in Hindriks 2023.
+values and coupling coefficient values used in Hindriks 2023.
 
 \tabdef{%
 \begin{tabular}{cccl}\hline
@@ -209,29 +183,8 @@ in terms of the amplification provided by each population of neurons
 (Equations 13-15 and Figure 3 in that reference).
 
 The parameter values used in Freyer 2011 and Hindriks 2023 were chosen to
-support biologically relevant oscillations when driven by external noise.
-
-%
-%
-\section{References}
-\label{sect-robinson-refs}
-
-\begin{itemize}
-%
-\item P. A. Robinson, C. J. Rennie, and D. L. Rowe, \textit{Dynamics of
-Large-Scale Brain Activity in Normal Arousal States and Epileptic Seizures},
-Physical Review E, 65, 041924, April 2002
-%
-\item F. Freyer, J. A. Roberts, R. Becker, P. A. Robinson, P. Ritter, and
-M. Breakspear, \textit{Biophysical Mechanisms of Multistability in
-Resting-State Cortical Rhythms}, Journal of Neuroscience, 31,
-pp 6353--6361, April 2011
-%
-\item R. Hindriks and P. K. B. Tewarie, \textit{Dissociation Between Phase
-and Power Correlation Networks in the Human Brain is Driven by Co-Occurrent
-Bursts}, Communications Biology, 6, 286, March 2023
-%
-\end{itemize}
+support biologically relevant oscillations when driven by external noise
+($\phi_n$).
 
 %
 %

@@ -1,10 +1,8 @@
 % Data sythesis using the Robinson/Freyer/Hindriks model - Analysis
 % Written by Christopher Thomas.
 
-\chapter{Robinson Model Mathematical Analysis}
+\chapter{Mathematical Analysis}
 \label{sect-robinson-math}
-
-\fixme{Edit this.}
 
 %
 %
@@ -16,6 +14,12 @@ that the effect of $\alpha$ and $\beta$ is to apply a low-pass filter to the
 weighted sum of input firing rates (a second-order exponential smoothing
 filter with poles at $-\alpha$ and $-\beta$).
 
+\begin{equation}
+\left ( \frac{1}{\alpha \beta} \right ) \ddot{V}_a(t)
++ \left ( \frac{1}{\alpha} + \frac{1}{\beta} \right ) \dot{V}_a(t)
++ V_a(t) = \sum_b \nu_{ab} \phi_b(t)
+\end{equation}
+%
 \begin{equation}
 \left ( \frac{1}{\alpha \beta} \right ) s^2 V_a(s)
 + \left ( \frac{1}{\alpha} + \frac{1}{\beta} \right ) s V_a(s)
@@ -42,6 +46,11 @@ that the effect of $\gamma$ is to apply a low-pass filter to the firing rate
 (a second-order exponential smoothing filter with both poles at $-\gamma$).
 
 \begin{equation}
+\frac{1}{\gamma^2} \ddot{\phi}(t) + \frac{2}{\gamma} \dot{\phi}(t) + \phi(t)
+= Q(t)
+\end{equation}
+%
+\begin{equation}
 \left ( \frac{1}{\gamma^2} \right ) s^2 \Phi(s)
 + \left ( \frac{2}{\gamma} \right ) s \Phi(s) + \Phi(s) = Q(s)
 \end{equation}
@@ -63,7 +72,7 @@ The effect of both of these filters is to suppress high-frequency
 oscillations (those above the filter corner frequencies) and to delay
 low-frequency oscillations by an amount approximately equal to the filters'
 time constants. These delays and corner frequencies are listed in Table
-\ref{tab-robinson-lowpass} (using the parameter values from
+\ref{tab-robinson-lowpass} (using the parameter values from Table
 \ref{tab-robinson-params}).
 
 \tabdef{%
@@ -151,7 +160,7 @@ gain is not shown.}
 {tab-robinson-loops}
 
 Resonant loops explicitly described in Section IV of Robinson 2002 are the
-ones marked ES, ERS, and SR in Table \ref{tab-robinson-loops}. Considering
+ones labelled ES, ERS, and SR in Table \ref{tab-robinson-loops}. Considering
 only those loops, the oscillation periods described in Section V of
 Robinson 2002 are consistent with the estimated periods of the ERS and
 SR loops.
@@ -174,12 +183,12 @@ analyzed.
 \label{sect-robinson-math-dc}
 
 As was described in Robinson 2002, the dynamics of the extended Robinson
-model can be analyzed by considering unchanging (DC) firing rates, and
-evaluating the small-signal gain around these operating points. While this
-was used to find the transfer function
-$\frac{\phi_e(\omega)}{\phi_n(\omega)}$ in Robinson 2002, here it is used
-to find the small-signal loop gain (to determine which oscillating modes
-are dominant for given parameter values).
+model can be analyzed by considering a state with unchanging (DC) firing
+rates, and evaluating the small-signal gain as firing rates are perturbed
+around this operating point. While this was used to find the transfer
+function $\frac{\phi_e(\omega)}{\phi_n(\omega)}$ with respect to noise in
+Robinson 2002, here it is used to find the small-signal loop gain (to
+determine which oscillating modes are dominant for given parameter values).
 
 At a given operating point, the sensitivity of the gain of the dominant
 loops to each of the $\nu_{ab}$ coefficients provides insight into which
@@ -187,7 +196,11 @@ network connections are most relevant for influencing dynamcis at that
 operating point. $\nu_{ee\_ext}$ is particularly of interest, as this
 may be used as a proxy for the sensitivity of network dynamics to changes
 in the connectivity matrix between different excitatory cortex neuron
-populations.
+populations. Since $\nu_{ee\_ext}$ and $\nu_{ee}$ contribute to the same
+feedback arc in Figure \ref{fig-robinson-loops}, sensitivity of a single
+model instance to $\nu_{ee}$ may be used as a proxy for sensitivity of
+interacting model instances to $\nu_{ee\_ext}$ and to changes in the
+connectivity matrix.
 
 For time-independent operating point analysis, Equation
 \ref{eq-robinson-potential} reduces to:
@@ -304,9 +317,9 @@ the operating point corresponding to the model parameters given in Table
 $\nu_{ee\_ext}$ coupling). All of the operating point values satisfy the
 constraint for exponential approximation validity ($\phi \ll 250$), and
 while the constraint for linear approximation is not satisfied
-($V \ll 3.3$), they are sufficiently close to the desired domain that the
-linear approximation result can be used as a seed value for obtaining the
-exponential approximation result via gradient descent.
+($V \ll 3.3$), the potentials $V_a$ are sufficiently close to the desired
+domain that the linear approximation result can be used as a seed value for
+obtaining the exponential approximation result via gradient descent.
 
 \tabdef{%
 \begin{tabular}{c|cccc}
@@ -635,16 +648,10 @@ given loop, any given weight affects many loops, so weights must be jointly
 optimized against all loop gains rather than optimized individually against
 a single loop gain.
 
-The gradients may also be used as the basis of gradient-guided searches of
-parameter space. In practice, the gradient may not need to be explicitly
-computed for this, since optimization library functions such as
-\texttt{fsolve} may compute it numerically themselves by sampling the
-loop gain.
-
-
-\fixme{Show how to find regions of parameter space where desired loops are
-dominant, including ones where the mixing matrix matters. Show where the
-regions Robinson plotted are. Show where the region Hindriks used is.}
+A function that jointly optimizes coupling weights to satisfy loop gain
+constraints is provided in \texttt{synthRFH\_optimizeCouplings.m}. This is
+best used when making small adjustments, as for large adjustments the
+network may not end up in a biologically plausible operating state.
 
 %
 %

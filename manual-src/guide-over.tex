@@ -4,24 +4,46 @@
 \chapter{Overview}
 \label{sect-over}
 
-\fixme{Edit this.}
+This document describes a model used to simulate interacting neural
+populations in the cortex and thalamus. The output of the model is mean
+firing rates of these neural populations, with noise-excited oscillations
+in the alpha band.
 
-This document describes the models used for synthesizing proxy neural
-activity using the ``\texttt{nlSynth\_}'' family of library functions.
+The original model was described and rigorously analyzed in Robinson 2002.
+Freyer 2011 describes an extension to the model where the noise input is
+modulated by the cortex population's output, providing a closer match with
+the oscillation spectra in biological data. Hindriks 2023 describes an
+extension to the model that adds multiple independent copies of the
+Robinson and Freyer model with coupling between instances. This is used
+to model co-oscillation of different brain regions.
 
-These functions are primarily intended to produce realistic-looking signals
-with known qualities to test analysis scripts with. That said, these models
-are drawn from publications where they were used to provide insight into
-the functioning of brain networks, so using these functions for such
-research is an additional use-case.
+The version of the model described in Hindriks 2023 is referred to in this
+document as the ``extended Robinson model''.
 
-Chapter \ref{sect-robinson} describes the neural model presented in
-Robinson 2002 (and elaborated on in Freyer 2011 and Hindriks 2023). This
-is a model of average firing rates of multiple neural populations in the
-cortex and thalamus, with feedback connections that drive noise-excited
-oscillations.
+Chapter \ref{sect-robinson-model} describes the details of the model.
+Chapter \ref{sect-howto} gives a summary of how the model is used; for
+a detailed treatment, consult the reference manual and sample code.
+Chapter \ref{sect-robinson-math} provides a detailed mathematical analysis
+of the model.
 
-\fixme{Other models go here once they're added.}
+Reference details:
+
+\begin{itemize}
+%
+\item P. A. Robinson, C. J. Rennie, and D. L. Rowe, \textit{Dynamics of
+Large-Scale Brain Activity in Normal Arousal States and Epileptic Seizures},
+Physical Review E, 65, 041924, April 2002
+%
+\item F. Freyer, J. A. Roberts, R. Becker, P. A. Robinson, P. Ritter, and
+M. Breakspear, \textit{Biophysical Mechanisms of Multistability in
+Resting-State Cortical Rhythms}, Journal of Neuroscience, 31,
+pp 6353--6361, April 2011
+%
+\item R. Hindriks and P. K. B. Tewarie, \textit{Dissociation Between Phase
+and Power Correlation Networks in the Human Brain is Driven by Co-Occurrent
+Bursts}, Communications Biology, 6, 286, March 2023
+%
+\end{itemize}
 
 %
 % This is the end of the file.
