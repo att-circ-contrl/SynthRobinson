@@ -4,14 +4,149 @@
 \chapter{Using the Model}
 \label{sect-howto}
 
-\fixme{NYI}
+\begin{sloppypar}
+Sample code for running a simulation is found in
+``\verb|code-example-synth/do_synth_robinson.m|'' in the ``\verb|examples|''
+folder. Sample code for finding steady-state operating points, analyzing
+loops, evaluating small-signal gain, and tuning internal couplings to change
+small-signal gain is found in
+``\verb|code-example-analysis/do_analyze_robinson.m|'' in the
+``\verb|examples|'' folder.
+\end{sloppypar}
 
-\fixme{Sample code for using the model to simulate neural populations.}
+The following sections provide a high-level description of how each of
+these tasks are performed.
 
-\fixme{Sample code for finding operating points and analyzing gain and
-sensitivity to coupling parameters.}
+%
+%
+\section{Running a Simulation}
+\label{sect-howto-run}
 
-\fixme{Sample code for choosing parameters to support desired behavior.}
+To run a simulation, do the following:
+
+\begin{sloppypar}
+\begin{itemize}
+%
+\item Get a model parameters structure and an internal couplings matrix.
+The ones returned by \verb|synthRFH_getModelParamsHindriks| are a reasonable
+starting point. See \verb|MODELPARAMS.txt| and Section
+\ref{sect-robinson-model} for details.
+%
+\item Make a population coupling matrix, if you intend to simulate multiple
+interacting populations.
+%
+\item Call \verb|synthRFH_ftWrapper_simulateNetwork| to run the simulation
+if you want the output in Field Trip format, or
+\verb|synthRFH_simulateNetwork| if you just want a matrix of firing rates.
+%
+\item If you need to convert firing rates back to cell potentials, you can
+use \verb|synthRFH_getSigmoidInverse|.
+%
+\end{itemize}
+\end{sloppypar}
+
+%
+%
+\section{Finding a Steady-State Operating Point and Identifying Loops}
+\label{sect-howto-oppoint}
+
+To find a network's steady-state behavior, do the following:
+
+\begin{sloppypar}
+\begin{itemize}
+%
+\item Get model parameters and internal couplings per Section
+\ref{sect-howto-run}.
+%
+\item Call \verb|synthRFH_estimateOperatingPointExponential| to estimate
+steady-state conditions. Pass \verb|[]| as the starting point (it'll
+bootstrap itself without trouble).
+%
+\item Call \verb|synthRFH_findLoops| to identify loops present. See
+\verb|LOOPINFO.txt| for details about the structure array it returns.
+%
+\item Call \verb|synthRFH_getEdgeGains| to get the small-signal gain of
+all internal connections.
+%
+\item Call \verb|synthRFH_addLoopGainInfo| to calculate the gain and rise
+or fall time of each detected loop and add it to the loop information
+structure array. Pass \verb|{}| as the gradient information.
+%
+\end{itemize}
+\end{sloppypar}
+
+%
+%
+\section{Adjusting Internal Couplings Automatically}
+\label{sect-howto-tuning}
+
+To automatically adjust internal couplings, do the following:
+
+\begin{sloppypar}
+\begin{itemize}
+%
+\item Decide on optimization goals. This is expressed as a Nx2 cell array
+listing loop labels and optimization conditions (example:
+\verb|{ 'ES', 'grow' }| to specify that loop \verb|ES| should have
+oscillations that grow over time). Valid goals are \verb|'biggest'|
+(fastest-growing), \verb|'grow'|, \verb|'decay'|, and \verb|'dontcare'|.
+Loops that aren't listed in the goals default to \verb|'dontcare'|.
+%
+\item Call \verb|synthRFH_optimizeCouplings| to try to perturb the
+internal couplings to give the desired behavior. Typical values of
+optimization parameters are \verb|taulimit = 1.0|, \verb|bestfactor = 1.2|,
+and \verb|maxprobes = NaN|.
+%
+\item Check the optimization error value that it gives you. If the error
+value is 0.1 or larger, it couldn't satisfy your request (optimization did
+not converge).
+%
+\end{itemize}
+\end{sloppypar}
+
+\textbf{NOTE - This only gives reasonable output for small changes.} Large
+adjustments of behavior tend to result in networks with unrealistic coupling
+parameters, and large adjustments of coupling parameters tend to result in
+networks with unrealistic behavior (all activity suppressed or locked into
+one oscillation mode).
+
+%
+%
+\section{Getting Gradient Information}
+\label{sect-howto-gradient}
+
+The gradient of edge gain and loop gain with respect to internal coupling
+weights can provide useful insight into how the model is behaving.
+
+To compute gradients, do the following:
+
+\begin{sloppypar}
+\begin{itemize}
+%
+\item Find the model's steady-state operating point and loop gains, per
+Section \ref{sect-howto-oppoint}.
+%
+\item Find the gradient of the operating point by calling
+\verb|synthRFH_getOperatingPointGradient|,
+ with \verb|zerohandling = 'nonzero'| and
+\verb|couplingstep = 0.01|.
+%
+\item Find the gradient of edge gains by calling
+\verb|synthRFH_getEdgeGainGradients| (supplying the firing rate gradients
+found in the previous step).
+%
+\item Find the gradient of loop gains by calling
+\verb|synthRFH_addLoopGainInfo|, passing the edge gain gradients found
+in the previous step.
+%
+\end{itemize}
+\end{sloppypar}
+
+Gradient calculation is discussed in detail in Section
+\ref{sect-robinson-math}. In principle, gradients may also give insight into
+how the model might be hand-tuned to exhibit desired behavior; in practice,
+numerical optimization is simpler. Gradient plots can give insight into
+whether a desired optimization is \textit{possible} or not.
 
 %
 % This is the end of the file.
