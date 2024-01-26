@@ -36,9 +36,8 @@ function firingrates = synthRFH_simulateNetwork( ...
 %   sample, in seconds. NOTE - This must be much smaller than system
 %   dynamics timescales!
 % "modelparams" is a structure specifying model tuning parameters, per
-%   MODELPARAMSROBINSON.txt. NOTE - If "duration" is a vector, this may
-%   optionally be a struct array specifying different parameters for each
-%   epoch.
+%   MODELPARAMS.txt. NOTE - If "duration" is a vector, this may optionally
+%   be a struct array specifying different parameters for each epoch.
 % "intcouplings" is a 4x4 matrix indexed by (destination,source) that
 %   provides the coupling weights (in mV*s) between excitatory cortex
 %   neurons (1), inhibitory cortex neurons (2), specific nucleus neurons (3),
@@ -51,9 +50,9 @@ function firingrates = synthRFH_simulateNetwork( ...
 %   in the cortex. After mixing, these then get weighted by (scalar)
 %   modelparams.mixturecoupling before integration as neural inputs. Set
 %   this to [] to omit internal cortex communication/mixing.
-%   NOTE - The typical mixture coupling weight in MODELPARAMSROBINSON.txt
-%   assumes that the cortex mixing matrix has rows normalized so that the
-%   absolute values of each row's elements sums to 1 (or a value close to 1).
+%   NOTE - The typical mixture coupling weight in MODELPARAMS.txt assumes that
+%   the cortex mixing matrix has rows normalized so that the absolute values
+%   of each row's elements sums to 1 (or a value close to 1).
 %   NOTE - If "duration" is a vector, this may optionally be a Npop x Npop x N
 %   matrix specifying different mixing weights for each epoch.
 % "cortexdelays_ms" is a Npop x Npop matrix indexed by (destination,source)

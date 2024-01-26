@@ -18,7 +18,7 @@ function [ rategradients potentialgradients ] = ...
 % coupling matrix and finding operating points for each perturbed version.
 %
 % "modelparams" is a model parameter structure with the fields described in
-%   MODELPARAMSROBINSON.txt.
+%   MODELPARAMS.txt.
 % "intcouplings" is a 4x4 matrix indexed by (destination, source) that
 %   provides the coupling weights (in mV*s) between excitatory, inhibitory,
 %   specific nucleus, and reticular nucleus neural populations.

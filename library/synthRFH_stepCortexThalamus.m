@@ -23,7 +23,7 @@ function statefuture = synthRFH_stepCortexThalamus( modelparams, ...
 % you think you need to.
 %
 % "modelparams" is a structure with the following fields (as described in
-%   MODELPARAMSROBINSON.txt):
+%   MODELPARAMS.txt):
 %   "qmax" is the maximum firing rate (1/sec); typically 250.
 %   "threshlevel" is the average neuronal threshold (mV); typ. 15.
 %   "threshsigma" is the standard deviation of the neuronal threshold (mV);
