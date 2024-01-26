@@ -18,7 +18,7 @@ function loopinfo = ...
 %   weight is nonzero (the absolute value must be at least "minweight").
 %
 % "loopinfo" is a structure array with one element per identified loop, and
-%   the following fields:
+%   the following fields (per LOOPINFO.txt):
 %   "label" is a unique identifier for the loop (the concatenation of the
 %     letters associated with each region in the loop's path).
 %   "regionsvisited" is a vector containing the indices of each region in the
@@ -30,7 +30,7 @@ function loopinfo = ...
 %     non-inverting, half that if inverting).
 %   "attenuation" is the loop's attenuation at its fundamental mode
 %     frequency from the alpha, beta, and gamma model parameters. This will
-%     be between 1 if the signal is passed perfectly and less than 1 if not.
+%     be 1 if the signal is passed perfectly and less than 1 if not.
 
 
 %

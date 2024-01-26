@@ -21,7 +21,7 @@ function newloopinfo = synthRFH_addLoopGainInfo( ...
 %   array skips calculation of loop gain gradients.
 %
 % "newloopinfo" is a copy of "oldloopinfo" with the following fields added
-%   to each record:
+%   to each record (per LOOPINFO.txt):
 %   "cyclegainraw" is the small-signal gain from traversing once around the
 %     loop, without taking into account filter attenuation.
 %   "cyclegain" is the small-signal gain from traversing once around the

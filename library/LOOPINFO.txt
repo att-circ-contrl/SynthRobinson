@@ -1,0 +1,49 @@
+The synthRFH_findLoops and synthRFH_addLoopGainInfo functions return loop
+information structure arrays (with one entry per loop found). These arrays
+have the following fields:
+
+
+From synthRFH_findLoops:
+
+"label" is a unique identifier for the loop (the concatenation of the
+  letters associated with each region in the loop's path).
+
+"regionsvisited" is a vector containing the indices of each region in the
+  loop's path. The first index is repeated as the last index.
+
+"delay" is the propagation time for one cycle around the loop, in seconds.
+
+"isinverting" is true if the product of the loop's edge couplings is
+  negative, and false if the product is positive.
+
+"frequency" is the loop's fundamental mode frequency in Hz (1/delay if
+  non-inverting, half that if inverting).
+
+"attenuation" is the loop's attenuation at its fundamental mode frequency
+  due to low-pass effects from the alpha, beta, and gamma model parameters.
+  This will be 1 if the signal is passed perfectly and less than 1 if not.
+
+
+
+From synthRFH_addLoopGainInfo:
+
+"cyclegainraw" is the small-signal gain from traversing once around the
+  loop, without taking into account filter attenuation.
+
+"cyclegain" is the small-signal gain from traversing once around the
+  loop with filter attenuation taken into account.
+
+"envelopetau" is the time constant for the growth (positive) or decay
+  (negative) of the oscillation envelope. The envelope is exp(t/tau).
+
+Optional:
+
+"cyclegaingradient" is the gradient with respect to "intcouplings" of
+  "cyclegain". This is a 4x4 matrix indexed by (destination, source)
+  specifying the partial derivatives of "cyclegain" with respect to the
+  coupling weights between excitatory, inhibitory, specific nucleus, and
+  reticular nucleus neural populations.
+
+
+
+(This is the end of the file.)
